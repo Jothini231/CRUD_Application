@@ -11,19 +11,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
-      # 1 Checkout repository
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2 Setup Java
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
 
-      # 3 Build Spring Boot backend
+      # Give execute permission to mvnw
+      - name: Make mvnw executable
+        run: chmod +x backend/mvnw
+
+      # Now build the backend
       - name: Build Backend
         run: |
           cd backend
@@ -33,4 +34,3 @@ jobs:
         uses: JetBrains/qodana-action@v2025.3
         with:
           args: --linter jetbrains/qodana-jvm-community:latest
-
