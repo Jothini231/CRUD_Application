@@ -23,10 +23,6 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      # Give permission to mvnw
-      - name: Make mvnw executable
-        run: chmod +x backend/mvnw
-
       # 3 Build Spring Boot backend
       - name: Build Backend
         run: |
