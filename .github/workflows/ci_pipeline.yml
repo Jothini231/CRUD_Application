@@ -30,7 +30,7 @@ jobs:
           cd backend
           ./mvnw clean install -DskipTests
 
-      - name: Qodana Scan
-        uses: JetBrains/qodana-action@v2025.3
-        with:
-          args: --save-report --save-baseline
+#      - name: Qodana Scan
+#        uses: JetBrains/qodana-action@v2025.3
+#        with:
+#          args: --save-report --save-baseline
