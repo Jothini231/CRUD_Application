@@ -1,0 +1,40 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # 1 Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2 Setup Java
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      # Give permission to mvnw
+      - name: Make mvnw executable
+        run: chmod +x backend/mvnw
+
+      # 3 Build Spring Boot backend
+      - name: Build Backend
+        run: |
+          cd backend
+          ./mvnw clean install
+
+      # 4 Run Qodana code analysis
+      - name: Qodana Scan
+        uses: JetBrains/qodana-action@v2025.3
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
